@@ -1,5 +1,7 @@
 package integers
 
-func Add(x, y int) int {
-	return x + y
+// Add takes two ints and returns its sum
+func Add(x, y int) (res int) {
+	res = x + y
+	return
 }
