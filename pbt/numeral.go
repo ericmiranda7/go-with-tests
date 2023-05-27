@@ -38,24 +38,24 @@ func ConvertToRoman(number int) string {
 
 func ConvertToArabic(roman string) int {
 	res := 0
-	for i := range roman {
-		if roman[i] == 'X' {
-			res += 10
-		}
-		if roman == "IX" {
-			return 9
-		}
-		if roman[i] == 'V' {
-			res += 5
-		}
-		if roman == "IV" {
-			return 4
-		}
-		if roman[i] == 'I' {
-			if (i != len(roman)-1) && (roman[i+1] != 'I') {
-				res -= 1
-			} else {
-				res += 1
+	for i := 0; i < len(roman); i++ {
+		for _, romanNumeral := range romanNumeralRules {
+			if string(roman[i]) == romanNumeral.Symbol {
+
+				if romanNumeral.Symbol == "I" && i < len(roman)-1 && string(roman[i+1]) != "I" {
+					res -= romanNumeral.Value
+					continue
+				}
+				if romanNumeral.Symbol == "X" && i < len(roman)-1 && !strings.ContainsAny("IVX", string(roman[i+1])) {
+					res -= romanNumeral.Value
+					continue
+				}
+				if romanNumeral.Symbol == "C" && i < len(roman)-1 && !strings.ContainsAny("IVXC", string(roman[i+1])) {
+					res -= romanNumeral.Value
+					continue
+				}
+				res += romanNumeral.Value
+
 			}
 		}
 	}

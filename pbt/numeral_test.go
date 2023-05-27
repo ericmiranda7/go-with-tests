@@ -139,7 +139,7 @@ func TestRomanNumerals(t *testing.T) {
 }
 
 func TestConvertToArabic(t *testing.T) {
-	for _, test := range cases[:15] {
+	for _, test := range cases {
 		t.Run(test.Name, func(t *testing.T) {
 			got := ConvertToArabic(test.Roman)
 
