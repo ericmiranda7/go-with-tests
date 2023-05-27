@@ -41,21 +41,26 @@ func ConvertToArabic(roman string) int {
 	for i := 0; i < len(roman); i++ {
 		for _, romanNumeral := range romanNumeralRules {
 			if string(roman[i]) == romanNumeral.Symbol {
-
-				if romanNumeral.Symbol == "I" && i < len(roman)-1 && string(roman[i+1]) != "I" {
-					res -= romanNumeral.Value
-					continue
-				}
-				if romanNumeral.Symbol == "X" && i < len(roman)-1 && !strings.ContainsAny("IVX", string(roman[i+1])) {
-					res -= romanNumeral.Value
-					continue
-				}
-				if romanNumeral.Symbol == "C" && i < len(roman)-1 && !strings.ContainsAny("IVXC", string(roman[i+1])) {
-					res -= romanNumeral.Value
-					continue
+				if i < len(roman)-1 {
+					switch romanNumeral.Symbol {
+					case "I":
+						if string(roman[i+1]) != "I" {
+							res -= romanNumeral.Value
+							continue
+						}
+					case "X":
+						if !strings.ContainsAny("IVX", string(roman[i+1])) {
+							res -= romanNumeral.Value
+							continue
+						}
+					case "C":
+						if !strings.ContainsAny("IVXC", string(roman[i+1])) {
+							res -= romanNumeral.Value
+							continue
+						}
+					}
 				}
 				res += romanNumeral.Value
-
 			}
 		}
 	}
