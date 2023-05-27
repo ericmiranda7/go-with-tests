@@ -35,3 +35,29 @@ func ConvertToRoman(number int) string {
 
 	return res.String()
 }
+
+func ConvertToArabic(roman string) int {
+	res := 0
+	for i := range roman {
+		if roman[i] == 'X' {
+			res += 10
+		}
+		if roman == "IX" {
+			return 9
+		}
+		if roman[i] == 'V' {
+			res += 5
+		}
+		if roman == "IV" {
+			return 4
+		}
+		if roman[i] == 'I' {
+			if (i != len(roman)-1) && (roman[i+1] != 'I') {
+				res -= 1
+			} else {
+				res += 1
+			}
+		}
+	}
+	return res
+}
